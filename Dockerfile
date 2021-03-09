@@ -1,7 +1,6 @@
 FROM markuseggenbauer/me_cpp_dev
 
 USER root
-
 ARG USERNAME=developer
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -38,6 +37,7 @@ RUN apt-get update && apt-get install -y \
     openjdk-8-jdk
 
 RUN update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
 # ADG doc design dependenciess
 RUN apt-get update && apt-get install -y \
     doxygen \
@@ -57,9 +57,16 @@ RUN apt-get update && apt-get install -y \
     libfontconfig1-dev \
     libfreetype6-dev
 
+RUN apt-get install -y tzdata
+RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula \
+    select true | debconf-set-selections
+RUN apt-get install -y ttf-mscorefonts-installer 
+
 RUN pip3 install conan --no-warn-script-location
 RUN pip3 install artifactory
 RUN pip3 install paramiko
+
+RUN gem install asciidoctor-diagram
 
 RUN adduser ${USERNAME} sudo
 RUN echo "%sudo  ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
