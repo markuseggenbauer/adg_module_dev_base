@@ -61,8 +61,7 @@ RUN apt-get update && apt-get install -y \
     tcpdump \
     strace
 
-RUN conan profile new default --detect && \
-    conan profile update settings.compiler.libcxx=libstdc++11 default && \
+RUN conan profile update settings.compiler.libcxx=libstdc++11 default && \
     conan profile update settings.compiler=gcc default && \
     conan profile update settings.compiler.version=8 default && \
     conan remote clean
