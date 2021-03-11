@@ -1,23 +1,10 @@
 FROM markuseggenbauer/me_cpp_dev
 
-USER root
-ARG USERNAME=developer
 ENV DEBIAN_FRONTEND noninteractive
-
-# development tools for user convenience
-RUN apt-get update && apt-get install -y \
-    sudo \
-    bsdmainutils \
-    iproute2 \
-    inetutils-ping \
-    tcpdump \
-    strace
 
 # ADG specific tools
 RUN apt-get update && apt-get install -y \
-    make \
     g++-8 \
-    gcovr \
     clang-format-10 \
     clang-tidy-10
 
@@ -43,6 +30,7 @@ RUN apt-get update && apt-get install -y \
     doxygen \
     asciidoctor \
     graphviz \
+    clang \
     python3 \
     python3-yaml \
     python3-jinja2 \
@@ -57,16 +45,14 @@ RUN apt-get update && apt-get install -y \
     libfontconfig1-dev \
     libfreetype6-dev
 
-RUN apt-get install -y tzdata
-RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula \
-    select true | debconf-set-selections
-RUN apt-get install -y ttf-mscorefonts-installer 
-
-RUN pip3 install conan --no-warn-script-location
 RUN pip3 install artifactory
 RUN pip3 install paramiko
 
-RUN gem install asciidoctor-diagram
+# development tools for user convenience
+RUN apt-get update && apt-get install -y \
+    bsdmainutils \
+    iproute2 \
+    inetutils-ping \
+    tcpdump \
+    strace
 
-RUN adduser ${USERNAME} sudo
-RUN echo "%sudo  ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
