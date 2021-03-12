@@ -1,5 +1,5 @@
 FROM markuseggenbauer/me_cpp_dev
-
+# Source: https://github.com/markuseggenbauer/cpp_dev_container/blob/main/.devcontainer/Dockerfile
 
 ENV DEBIAN_FRONTEND noninteractive
 
