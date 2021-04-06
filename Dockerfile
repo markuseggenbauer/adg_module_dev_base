@@ -41,6 +41,7 @@ RUN apt-get update && apt-get install -y \
     python3-jinja2 \
     python3-jsonschema \
     python3-clang \
+    python3-pip \
     xsltproc \
     libsaxon-java \
     docbook-xsl \
@@ -48,10 +49,12 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libc6-dev \
     libfontconfig1-dev \
-    libfreetype6-dev
-
-RUN pip3 install artifactory
-RUN pip3 install paramiko
+    libfreetype6-dev \
+    plantuml && \
+    pip3 install cmake_format && \
+    pip3 install artifactory && \
+    pip3 install paramiko && \
+    gem install asciidoctor-diagram
 
 # development tools for user convenience
 RUN apt-get update && apt-get install -y \
