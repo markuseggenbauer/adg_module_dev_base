@@ -34,6 +34,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: docker
+          context: .
           push: true
           tags: markuseggenbauer/adg_module_dev_base:${{ env.BRANCH_NAME }}-latest
