@@ -35,7 +35,8 @@ RUN apt-get update && apt-get install -y \
     docbook-xsl \
     fop \
     libfontconfig1-dev \
-    libfreetype6-dev
+    libfreetype6-dev && \
+    gem install asciidoctor-diagram
 
 # development tools for user convenience
 RUN apt-get update && apt-get install -y \
