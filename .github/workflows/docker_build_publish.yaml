@@ -2,14 +2,19 @@ name: Publish Docker image
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - Dockerfile
+  workflow_dispatch:
     
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - 
+        name: Get branch name
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
       -
         name: Checkout
         uses: actions/checkout@v2
@@ -29,6 +34,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: docker
           push: true
-          tags: markuseggenbauer/adg_module_dev_base:latest
+          tags: markuseggenbauer/adg_module_dev_base:${{ env.BRANCH_NAME }}-latest
